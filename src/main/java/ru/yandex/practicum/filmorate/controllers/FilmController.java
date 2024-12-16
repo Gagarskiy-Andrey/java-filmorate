@@ -24,7 +24,10 @@ public class FilmController {
 
     @PostMapping
     public Film addFilm(@Validated(Add.class) @RequestBody Film film) {
-        return filmsRepository.save(film);
+        log.info("Добавление нового фильма: {}", film.getName());
+        Film savedFilm = filmsRepository.save(film);
+        log.info("Фильм c id = {} успешно добавлен", savedFilm.getId());
+        return savedFilm;
     }
 
     @PutMapping
@@ -32,7 +35,9 @@ public class FilmController {
         if (!filmsRepository.get().containsKey(film.getId())) {
             throw new NotFoundException("Фильм с указанным id отсутствует");
         }
+        log.info("Обновление фильма с id = {}", film.getId());
         filmsRepository.get().put(film.getId(), film);
+        log.info("Фильм с id = {} успешно обновлён", film.getId());
         return film;
     }
 }

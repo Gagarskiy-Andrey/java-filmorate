@@ -24,10 +24,13 @@ public class UserController {
 
     @PostMapping
     public User addUser(@Validated(Add.class) @RequestBody User user) {
+        log.info("Создание нового пользователя: {}", user.getLogin());
         if (user.getName() == null || user.getName().isBlank()) {
             user.setName(user.getLogin());
         }
-        return usersRepository.save(user);
+        User savedUser = usersRepository.save(user);
+        log.info("Пользователь c id = {} успешно добавлен", savedUser.getId());
+        return savedUser;
     }
 
     @PutMapping
@@ -35,10 +38,12 @@ public class UserController {
         if (!usersRepository.get().containsKey(user.getId())) {
             throw new NotFoundException("Пользователь с указанным id отсутствует");
         }
+        log.info("Обновление данных пользователя с id = {}", user.getId());
         if (user.getName() == null || user.getName().isBlank()) {
             user.setName(user.getLogin());
         }
         usersRepository.get().put(user.getId(), user);
+        log.info("Пользователь с id = {} успешно обновлён", user.getId());
         return user;
     }
 }
