@@ -25,9 +25,7 @@ public class UserController {
     @PostMapping
     public User addUser(@Validated(Add.class) @RequestBody User user) {
         log.info("Создание нового пользователя: {}", user.getLogin());
-        if (user.getName() == null || user.getName().isBlank()) {
-            user.setName(user.getLogin());
-        }
+        ifNameIsEmpty(user);
         User savedUser = usersRepository.save(user);
         log.info("Пользователь c id = {} успешно добавлен", savedUser.getId());
         return savedUser;
@@ -39,11 +37,15 @@ public class UserController {
             throw new NotFoundException("Пользователь с указанным id отсутствует");
         }
         log.info("Обновление данных пользователя с id = {}", user.getId());
-        if (user.getName() == null || user.getName().isBlank()) {
-            user.setName(user.getLogin());
-        }
+        ifNameIsEmpty(user);
         usersRepository.get().put(user.getId(), user);
         log.info("Пользователь с id = {} успешно обновлён", user.getId());
         return user;
+    }
+
+    void ifNameIsEmpty(User user) {
+        if (user.getName() == null || user.getName().isBlank()) {
+            user.setName(user.getLogin());
+        }
     }
 }
