@@ -1,11 +1,15 @@
 package ru.yandex.practicum.filmorate.repository;
 
+import ru.yandex.practicum.filmorate.exceptions.NotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class UsersRepository {
-    HashMap<Long, User> usersStorage = new HashMap<>();
+    private final Map<Long, User> usersStorage = new HashMap<>();
+    protected Long id = 1L;
 
     public User save(User user) {
         user.setId(getNextId());
@@ -13,16 +17,19 @@ public class UsersRepository {
         return user;
     }
 
-    public HashMap<Long, User> get() {
-        return usersStorage;
+    public List<User> getUsersList() {
+        return usersStorage.values().stream().toList();
     }
 
-    private long getNextId() {
-        long currentMaxId = usersStorage.keySet()
-                .stream()
-                .mapToLong(id -> id)
-                .max()
-                .orElse(0);
-        return ++currentMaxId;
+    private Long getNextId() {
+        return id++;
+    }
+
+    public User findAndUpdateUserById(User user) {
+        if (!usersStorage.containsKey(user.getId())) {
+            throw new NotFoundException("Пользователь с указанным id отсутствует");
+        }
+        usersStorage.put(user.getId(), user);
+        return user;
     }
 }
