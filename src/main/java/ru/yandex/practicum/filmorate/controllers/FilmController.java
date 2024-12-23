@@ -14,11 +14,14 @@ import java.util.List;
 @RequestMapping("/films")
 @Slf4j
 public class FilmController {
-    FilmsRepository filmsRepository = new FilmsRepository();
+    private final FilmsRepository filmsRepository = new FilmsRepository();
 
     @GetMapping
     public List<Film> getAll() {
-        return filmsRepository.getFilmsList();
+        log.info("Get запрос /films");
+        List<Film> allFilms = filmsRepository.getFilmsList();
+        log.info("Ответ Get /films с телом: {}", allFilms);
+        return allFilms;
     }
 
     @PostMapping
@@ -32,7 +35,7 @@ public class FilmController {
     @PutMapping
     public Film updateFilm(@Validated(Update.class) @RequestBody Film film) {
         log.info("Put запрос /films с телом: {}", film);
-        Film updatedFilm = filmsRepository.findAndUpdateFilmById(film);
+        Film updatedFilm = filmsRepository.update(film);
         log.info("Ответ Put /films с телом: {}", updatedFilm);
         return updatedFilm;
     }

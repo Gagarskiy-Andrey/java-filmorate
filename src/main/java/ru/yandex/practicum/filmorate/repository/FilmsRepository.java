@@ -21,15 +21,15 @@ public class FilmsRepository {
         return filmsStorage.values().stream().toList();
     }
 
-    private Long getNextId() {
-        return id++;
-    }
-
-    public Film findAndUpdateFilmById(Film film) {
+    public Film update(Film film) {
         if (!filmsStorage.containsKey(film.getId())) {
             throw new NotFoundException("Фильм с указанным id отсутствует");
         }
         filmsStorage.put(film.getId(), film);
         return film;
+    }
+
+    private Long getNextId() {
+        return id++;
     }
 }

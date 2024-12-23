@@ -21,15 +21,15 @@ public class UsersRepository {
         return usersStorage.values().stream().toList();
     }
 
-    private Long getNextId() {
-        return id++;
-    }
-
-    public User findAndUpdateUserById(User user) {
+    public User update(User user) {
         if (!usersStorage.containsKey(user.getId())) {
             throw new NotFoundException("Пользователь с указанным id отсутствует");
         }
         usersStorage.put(user.getId(), user);
         return user;
+    }
+
+    private Long getNextId() {
+        return id++;
     }
 }
