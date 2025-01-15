@@ -9,7 +9,7 @@ import java.util.*;
 @Component
 public class InMemoryFilmStorage implements FilmStorage {
     private final Map<Long, Film> filmsStorage = new HashMap<>();
-    HashMap<Film, Set<Long>> likesFilms = new HashMap<>();
+    private final Map<Film, Set<Long>> likesFilms = new HashMap<>();
     protected Long id = 1L;
 
     @Override
