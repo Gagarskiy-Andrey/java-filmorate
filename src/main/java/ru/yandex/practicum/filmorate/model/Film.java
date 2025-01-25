@@ -6,6 +6,7 @@ import ru.yandex.practicum.filmorate.validators.Add;
 import ru.yandex.practicum.filmorate.validators.Update;
 
 import java.time.LocalDate;
+import java.util.LinkedHashSet;
 
 /**
  * Film.
@@ -21,6 +22,9 @@ public class Film {
     private LocalDate releaseDate;
     @Positive(groups = {Add.class, Update.class}, message = "duration must be positive")
     private Integer duration;
+    @NotNull
+    Mpa mpa;
+    LinkedHashSet<Genre> genres;
 
     @AssertTrue(groups = {Add.class, Update.class}, message = "Release date invalid")
     public boolean isValideReleaseDate() {
