@@ -1,15 +1,17 @@
 delete
-from MPA;
+from mpa_rating;
 delete
-from GENRES;
-INSERT INTO GENRES (GENRE_NAME) VALUES
+from genres;
+
+INSERT INTO GENRES (name) VALUES
 ('Комедия'),
 ('Драма'),
 ('Мультфильм'),
 ('Триллер'),
 ('Документальный'),
 ('Боевик');
-MERGE INTO MPA (MPA_ID, MPA_NAME) VALUES
+
+INSERT INTO MPA_RATING (rating_id, name) VALUES
 (1,'G'),
 (2,'PG'),
 (3,'PG-13'),

@@ -6,6 +6,7 @@ import ru.yandex.practicum.filmorate.validators.Add;
 import ru.yandex.practicum.filmorate.validators.Update;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.LinkedHashSet;
 
 /**
@@ -23,11 +24,17 @@ public class Film {
     @Positive(groups = {Add.class, Update.class}, message = "duration must be positive")
     private Integer duration;
     @NotNull
+
     Mpa mpa;
-    LinkedHashSet<Genre> genres;
+    final LinkedHashSet<Genre> genres = new LinkedHashSet<>();
 
     @AssertTrue(groups = {Add.class, Update.class}, message = "Release date invalid")
     public boolean isValideReleaseDate() {
         return releaseDate.isAfter(LocalDate.of(1895, 12, 28));
+    }
+
+    public void setGenres(Collection<Genre> genres) {
+        this.genres.clear();
+        this.genres.addAll(genres);
     }
 }

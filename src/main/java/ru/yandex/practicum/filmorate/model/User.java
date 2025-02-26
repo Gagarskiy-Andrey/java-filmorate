@@ -6,6 +6,8 @@ import ru.yandex.practicum.filmorate.validators.Add;
 import ru.yandex.practicum.filmorate.validators.Update;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 public class User {
@@ -19,6 +21,20 @@ public class User {
     private String login;
     private String name;
     private LocalDate birthday;
+
+    Set<Long> friends = new HashSet<>();
+
+    public User() {
+    }
+
+    public User(Long id, String email, String login, String name, LocalDate birthday, Set<Long> friends) {
+        this.id = id;
+        this.email = email;
+        this.login = login;
+        this.name = name;
+        this.birthday = birthday;
+        this.friends = friends != null ? friends : new HashSet<>();
+    }
 
     @AssertTrue(groups = {Add.class, Update.class}, message = "Birthday date invalid")
     public boolean isValideReleaseDate() {
