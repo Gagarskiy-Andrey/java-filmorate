@@ -1,16 +1,22 @@
 package ru.yandex.practicum.filmorate.model;
 
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import ru.yandex.practicum.filmorate.validators.Add;
 import ru.yandex.practicum.filmorate.validators.Update;
 
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.LinkedHashSet;
 
 /**
  * Film.
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Film {
     @NotNull(groups = {Update.class}, message = "Id отсутствует")
     private Long id;
@@ -21,9 +27,18 @@ public class Film {
     private LocalDate releaseDate;
     @Positive(groups = {Add.class, Update.class}, message = "duration must be positive")
     private Integer duration;
+    @NotNull
+
+    private Mpa mpa;
+    final LinkedHashSet<Genre> genres = new LinkedHashSet<>();
 
     @AssertTrue(groups = {Add.class, Update.class}, message = "Release date invalid")
     public boolean isValideReleaseDate() {
         return releaseDate.isAfter(LocalDate.of(1895, 12, 28));
+    }
+
+    public void setGenres(Collection<Genre> genres) {
+        this.genres.clear();
+        this.genres.addAll(genres);
     }
 }

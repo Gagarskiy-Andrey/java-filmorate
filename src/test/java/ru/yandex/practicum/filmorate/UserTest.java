@@ -10,6 +10,7 @@ import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.validators.Add;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -31,6 +32,7 @@ public class UserTest {
         user.setLogin("testuser");
         user.setName("Test User");
         user.setBirthday(LocalDate.of(2000, 1, 1));
+        user.setFriends(new HashSet<>());
 
         Set<ConstraintViolation<User>> violations = validator.validate(user, Add.class);
         assertTrue(violations.isEmpty());
@@ -43,6 +45,7 @@ public class UserTest {
         user.setEmail("");
         user.setLogin("testuser");
         user.setBirthday(LocalDate.of(2000, 1, 1));
+        user.setFriends(new HashSet<>());
 
         Set<ConstraintViolation<User>> violations = validator.validate(user, Add.class);
         assertFalse(violations.isEmpty());
@@ -55,6 +58,7 @@ public class UserTest {
         user.setEmail("test@example.com");
         user.setLogin("test user"); // содержит пробел
         user.setBirthday(LocalDate.of(2000, 1, 1));
+        user.setFriends(new HashSet<>());
 
         Set<ConstraintViolation<User>> violations = validator.validate(user, Add.class);
         assertFalse(violations.isEmpty());
@@ -67,6 +71,7 @@ public class UserTest {
         user.setEmail("test@example.com");
         user.setLogin("testuser");
         user.setBirthday(LocalDate.now().plusDays(1)); // дата в будущем
+        user.setFriends(new HashSet<>());
 
         Set<ConstraintViolation<User>> violations = validator.validate(user, Add.class);
         assertFalse(violations.isEmpty());

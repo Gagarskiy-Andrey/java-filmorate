@@ -18,6 +18,14 @@ import java.util.List;
 public class FilmController {
     private final FilmService filmService;
 
+    @GetMapping("/{id}")
+    public Film getFilm(@PathVariable long id) {
+        log.info("Get запрос на получение фильма по id {}", id);
+        Film film = filmService.getFilm(id);
+        log.info("Ответ Get /{id} с телом: {}", id);
+        return film;
+    }
+
     @GetMapping
     public List<Film> getAll() {
         log.info("Get запрос /films");
