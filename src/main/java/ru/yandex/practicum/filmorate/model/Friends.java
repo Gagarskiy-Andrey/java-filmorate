@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Friends {
-    Long userId;
-    Long friendId;
-    boolean status;
+    private Long userId;
+    private Long friendId;
+    private boolean status;
 }

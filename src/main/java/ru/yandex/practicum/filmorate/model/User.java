@@ -2,6 +2,7 @@ package ru.yandex.practicum.filmorate.model;
 
 import jakarta.validation.constraints.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import ru.yandex.practicum.filmorate.validators.Add;
 import ru.yandex.practicum.filmorate.validators.Update;
 
@@ -10,6 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Data
+@NoArgsConstructor
 public class User {
     @NotNull(groups = {Update.class}, message = "Id отсутствует")
     private Long id;
@@ -22,10 +24,7 @@ public class User {
     private String name;
     private LocalDate birthday;
 
-    Set<Long> friends = new HashSet<>();
-
-    public User() {
-    }
+    private Set<Long> friends = new HashSet<>();
 
     public User(Long id, String email, String login, String name, LocalDate birthday, Set<Long> friends) {
         this.id = id;

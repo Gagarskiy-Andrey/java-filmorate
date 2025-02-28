@@ -24,7 +24,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 @AutoConfigureTestDatabase
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 @Import({UserDbStorage.class, UserMapper.class})
-class FilmoRateApplicationTests {
+class JdbcUserStorageTest {
     private final UserDbStorage userStorage;
 
     @BeforeEach

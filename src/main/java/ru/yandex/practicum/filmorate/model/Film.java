@@ -1,7 +1,9 @@
 package ru.yandex.practicum.filmorate.model;
 
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import ru.yandex.practicum.filmorate.validators.Add;
 import ru.yandex.practicum.filmorate.validators.Update;
 
@@ -13,6 +15,8 @@ import java.util.LinkedHashSet;
  * Film.
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Film {
     @NotNull(groups = {Update.class}, message = "Id отсутствует")
     private Long id;
@@ -25,7 +29,7 @@ public class Film {
     private Integer duration;
     @NotNull
 
-    Mpa mpa;
+    private Mpa mpa;
     final LinkedHashSet<Genre> genres = new LinkedHashSet<>();
 
     @AssertTrue(groups = {Add.class, Update.class}, message = "Release date invalid")

@@ -18,7 +18,7 @@ import java.util.Optional;
 @Repository
 @AllArgsConstructor
 public class MpaDbStorage implements MpaStorage {
-    JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
     @Override
     public List<Mpa> getAllMpa() {
